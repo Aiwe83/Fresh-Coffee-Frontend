@@ -10,10 +10,8 @@ export default function Login() {
   const passwordRef = createRef();
 
   const [errores, setErrores] = useState([]);
-  const { login } = useAuth({
-    middleware: "guest",
-    url: "/"
-  });
+  
+  const { login } = useAuth({ middleware: "guest", url: "/" });
 
   const handleSubmit = async e => {
     e.preventDefault();
@@ -23,7 +21,7 @@ export default function Login() {
       password: passwordRef.current.value,
     };
     //console.log(datos); Debug para ver por consola los datos ingresados
-    login(datos,setErrores);
+    login(datos, setErrores);
   };
 
   return (
@@ -32,7 +30,15 @@ export default function Login() {
       <p>Para crear un pedido debes iniciar Sesión</p>
 
       <div className="bg-white shadow-md rounded-md px-5 py-10">
-        <form onSubmit={handleSubmit} noValidate>
+        <form
+          onSubmit={handleSubmit}
+
+          //En Laravel, la propiedad noValidate se utiliza en formularios HTML para deshabilitar la validación
+          // del lado del cliente. Cuando se establece en un formulario, evita que el navegador realice la validación
+          // de los campos antes de enviar el formulario.
+          noValidate
+        >
+
           {/*  Lo que coloque entre la apertura y el cierre toma ese children que creamos en Alerta.jsx asi es mas dinamico */}
           {errores
             ? errores.map((error, i) => <Alerta key={i}>{error}</Alerta>)

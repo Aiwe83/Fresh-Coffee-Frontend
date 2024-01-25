@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+
 import useQuiosco from "../hooks/useQuiosco";
 import { formatearDinero } from "../helpers";
 
@@ -11,10 +13,8 @@ export default function ResumenProducto({ producto }) {
       <div className="space-y-2">
         <p className="text-xl font-bold">{nombre}</p>
         <p className="text-lg font-bold ">Cantidad: {cantidad}</p>
-        <p className="text-lg font-bold text-amber-500">
-          Precio:{formatearDinero(precio)}
-        </p>
-        <p className="text-lg text-gray-700">Subtotal:{formatearDinero(precio * cantidad)}</p>
+        <p className="text-lg font-bold text-amber-500">Precio: {formatearDinero(precio)}</p>
+        <p className="text-lg text-gray-700">Subtotal: {formatearDinero(precio * cantidad)}</p>
       </div>
 
       <div className="flex justify-between gap-2 pb-4">

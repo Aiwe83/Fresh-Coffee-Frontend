@@ -9,6 +9,8 @@ import Ordenes from "../views/Ordenes";
 import Productos from "../views/Productos";
 
 const router = createBrowserRouter([
+
+  //Seccion de usuario 
   {
     path: "/",
 
@@ -36,6 +38,8 @@ const router = createBrowserRouter([
       },
     ],
   },
+
+  //Seccion de administrador
   {
     path: "/admin",
     element: <AdminLayout />,

@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { formatearDinero } from "../helpers";
 import useQuiosco from "../hooks/useQuiosco";
 

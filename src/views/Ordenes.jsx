@@ -4,16 +4,21 @@ import clienteAxios from "../config/axios";
 import { formatearDinero } from "../helpers";
 
 export default function Ordenes() {
-  const token = localStorage.getItem("AUTH_TOKEN");
-  const fetcher = () =>
-    clienteAxios("/api/pedidos", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
 
-  //Este codigo sirve para que actualize en tiempo real de forma automatica
-  const { data, error, isLoading } = useSWR("/api/pedidos", fetcher, {
+  //Enviamos la peticion autenticada 
+
+  const token = localStorage.getItem("AUTH_TOKEN");
+
+  const fetcher = () => clienteAxios("/api/pedidos", {
+
+    headers: {
+      Authorization: `Bearer ${token}`
+
+    },
+  });
+
+  //Este codigo sirve para que actualize la informacion en "tiempo real" cada 1 segundo
+  const { data, isLoading } = useSWR("/api/pedidos", fetcher, {
     refreshInterval: 1000,
   });
   const { handleClickCompletarPedido } = useQuiosco();
@@ -26,7 +31,7 @@ export default function Ordenes() {
   console.log(error);
   console.log(isLoading); */
 
-  //console.log(data.data.data)
+ //console.log(data.data.data) Podemos ver la tabla pivot(cantidad) agregada a la consulta pedido_productos
 
   return (
     <div>
@@ -34,7 +39,7 @@ export default function Ordenes() {
       <p className="text-2xl my-10">Administra las ordenes desde aquí.</p>
 
       <div className="grid grid-cols-2 gap-5">
-        {data.data.data.map((pedido) => (
+        {data.data.data.map(pedido => (
           <div
             key={pedido.id}
             className="p-5 bg-white shadow space-y-2 border-b"

@@ -11,21 +11,25 @@ export default function Inicio() {
   //Consulta SWR
 
   const token = localStorage.getItem("AUTH_TOKEN");
+
   const fetcher = () =>
-    clienteAxios("/api/productos", {
+
+    clienteAxios("/api/productos", { //Endpoint
       headers: {
         Authorization: `Bearer ${token}`,
       },
     }).then((data) => data.data);
 
-  const { data, error, isLoading } = useSWR("/api/productos", fetcher, {
-    //Refrescamos con los productos que estan disponiblesde forma automatica
+  const { data, isLoading } = useSWR("/api/productos", fetcher, { //Endpoint
+
+    //Refrescamos con los productos que estan disponibles de forma automatica
     refreshInterval: 1000,
   });
 
-  console.log(data);
-  console.log(error);
-  console.log(isLoading);
+
+  //console.log(data);
+  //console.log(error);
+  //console.log(isLoading);
 
   if (isLoading) return "Cargando ...";
 

@@ -9,7 +9,7 @@ export default function Productos() {
       headers: { Authorization: `Bearer ${token}` },
     }).then((datos) => datos.data);
 
-  const { data, error, isLoading } = useSWR("/api/productos", fetcher, {
+  const { data, isLoading } = useSWR("/api/productos", fetcher, {
     refreshInterval: 1000,
   });
 

@@ -7,12 +7,13 @@ import "./index.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
 
-  <React.StrictMode>
+  //<React.StrictMode>
+
     <QuioscoProvider>{/* Con esto va estar toda la informacion de forma global */}
 
       <RouterProvider router={router} />
 
     </QuioscoProvider>
 
-  </React.StrictMode>
+  //</React.StrictMode>
 );

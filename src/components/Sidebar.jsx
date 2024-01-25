@@ -14,7 +14,7 @@ export default function Sidebar() {
         <img className="w-40" src="../img/logo.svg" alt="Imagen Logo" />
       </div>
 
-      <p className="my-10 text-xl text-center font-bold">Hola! {user?.name}</p>
+      <p className="my-10 text-xl text-center font-bold">Hola! {user?.name}</p>{/* Colocamos el nombre del usuario */}
       <div className="mt-10 ">
         {categorias.map((categoria) => (
           <Categoria

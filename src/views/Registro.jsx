@@ -1,32 +1,37 @@
 import { createRef, useState } from "react";
 import { Link } from "react-router-dom"; // Se utiliza para que la pagina no recargue  y se vea mas fluido
- import Alerta from "../components/Alerta";
+import Alerta from "../components/Alerta";//Para mostrar los errores
 import { useAuth } from "../hooks/useAuth";
 
 export default function Registro() {
-  //Esto nos regresara lo que coloquemos en el formulario
+
+  /* En Laravel, el método createRef crea un modelo nuevo con una referencia única. Esta referencia
+  permite identificar cada instancia del modelo en la base de datos, facilitando la búsqueda y
+  manipulación eficiente de datos. */
+
   const nameRef = createRef();
   const emailRef = createRef();
   const passwordRef = createRef();
   const passwordConfirmationRef = createRef();
-  const [errores, setErrores] = useState([]);
-  const { registro } = useAuth({
-    middleware: "guest",
-    url: "/",
-  });
+  const [errores, setErrores] = useState([]); //Para mostrar los errores
 
+  const { registro } = useAuth({ middleware: "guest", url: "/", });
+
+  //Prevenimos la accion con Default para que no recargue la pagina
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    //Estos son los datos(objeto) que enviaremos al backend de Laravel(endpoint)
     const datos = {
       name: nameRef.current.value,
       email: emailRef.current.value,
       password: passwordRef.current.value,
-      password_confirmation: passwordConfirmationRef.current.value,
+      password_confirmation: passwordConfirmationRef.current.value,// password_confirmation: Esta palabra es propia de Laravel
     };
-    //console.log(datos); Debug para ver por consola los datos ingresados
 
-  registro(datos, setErrores);
+    //console.log(datos);  
+
+    registro(datos, setErrores);
 
   };
 
@@ -37,14 +42,20 @@ export default function Registro() {
 
       <div className="bg-white shadow-md rounded-md px-5 py-10">
         <form
+
           onSubmit={handleSubmit}
           noValidate //Para que no valide con la validacion de HTML5 en el formulario
+
         >
-          {/*  Lo que coloque entre la apertura y el cierre toma ese children que creamos en Alerta.jsx asi es mas dinamico */}
-          {errores
-            ? errores.map((error, i) => <Alerta key={i}>{error}</Alerta>)
-            : null}{" "}
-          {/* Mapea los erores y los muestra por pantalla */}
+
+
+          {/* Mapea los erores y los muestra por pantalla
+              Colocamos la prop key para que React lo identifique
+           */}
+
+          {errores ? errores.map((error, i) => <Alerta key={i}>{error}</Alerta>) : null}{" "}
+
+          {/* Datos a ingresar */}
           <div className="mb-4">
             <label className="text-slate-800" htmlFor="name">
               Nombre
@@ -103,6 +114,8 @@ export default function Registro() {
             className="bg-indigo-600 hover:bg-indigo-800 text-white w-full mt-5 p-3 uppercase font-bold cursor-pointer rounded-md"
           />
         </form>
+
+       {/*  Letra pequeña */}
       </div>
       <nav className="mt-5">
         <Link to="/auth/login" className="block text-center text-slate-500">
